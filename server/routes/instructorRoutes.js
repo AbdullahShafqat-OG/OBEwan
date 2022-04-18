@@ -18,7 +18,7 @@ app.get("/instructors", async (request, response) => {
     }
 });
 
-app.post("/instructor/login", async(request, response) => {
+app.post("/api/login", async(request, response) => {
     const admin = await adminModel.findOne({
         email: request.body.email,
     });

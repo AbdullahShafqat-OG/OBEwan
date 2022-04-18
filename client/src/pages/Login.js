@@ -9,7 +9,7 @@ function App() {
 	async function loginUser(event) {
 		event.preventDefault();
 
-		const response = await fetch(localhost + '/instructor/login', {
+		const response = await fetch(localhost + '/api/login', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -24,10 +24,10 @@ function App() {
 		const data = await response.json();
 
         if (data.user.privilege === "admin") {
-            alert("Login Successful Admin");
+            // alert("Login Successful Admin");
             window.location.href = "/dashboard/admin";
         } else if (data.user.privilege === "user") {
-            alert("Login Successful Instructor");
+            // alert("Login Successful Instructor");
             window.location.href = "/dashboard/instructor";
         } else {
             alert("Login Unsuccessful");

@@ -2,7 +2,7 @@ const express = require("express");
 const ploModel = require("../models/plo.model");
 const app = express()
 
-app.get("/plos", async (request, response) => {
+app.get("/api/plos", async (request, response) => {
     const plos = await ploModel.find({});
 
     try {

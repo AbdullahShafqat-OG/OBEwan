@@ -2,6 +2,6 @@
 Software Construction Project
 
 ###### Data Entry Guidelines
-**Instructors**
+**Instructors** <br />
 Mail: \<name\>@mail.com <br />
 Password: pass

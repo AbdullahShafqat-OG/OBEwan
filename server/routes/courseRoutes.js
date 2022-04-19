@@ -2,7 +2,7 @@ const express = require("express");
 const courseModel = require("../models/course.model");
 const app = express()
 
-app.get("/courses", async (request, response) => {
+app.get("/api/courses", async (request, response) => {
     const courses = await courseModel.find({});
 
     try {

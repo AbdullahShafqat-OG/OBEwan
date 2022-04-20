@@ -23,7 +23,7 @@ export default function PloList() {
 
     useEffect(() => {
         async function getPlos() {
-            const response = await fetch('http://localhost:3000/api/plos/');
+            const response = await fetch('http://localhost:4000/api/plos/');
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
@@ -53,7 +53,7 @@ export default function PloList() {
 
     useEffect(() => {
         async function getCourses() {
-            const response = await fetch('http://localhost:3000/api/courses/');
+            const response = await fetch('http://localhost:4000/api/courses/');
 
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;

@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 
 const CourseSchema = new mongoose.Schema({
+    code: {
+        type: String,
+        required: true,
+        trim: true,
+        unique: true,
+    },
     name: {
         type: String, 
         required: true,
@@ -10,7 +16,10 @@ const CourseSchema = new mongoose.Schema({
         type: [String]
     },
     mapping: {
-        type: Map,
+        type: [{
+            clo: String,
+            plo: [String],
+        }],
     },
 });
 

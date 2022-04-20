@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -14,18 +14,42 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Button, IconButton, TextField, Typography } from "@mui/material";
+import { useParams } from "react-router-dom";
 
-function App() {
-  const [name, setName] = useState("");
+function App(props) {
+  const params = useParams();
+  const id = params.name;
+  const [name, setName] = useState(id);
   const [label, setLabel] = useState("");
   const [statement, setStatement] = useState("");
   const [degree, setDegree] = useState("");
 
-  async function createPlo(event) {
+  useEffect(() => {
+    async function getPlo() {
+      const response = await fetch(`http://localhost:4000/api/get-plo/${name}`);
+
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+
+      const plo = await response.json();
+
+      setLabel(plo[0].label);
+      setStatement(plo[0].statement);
+      setDegree(plo[0].degree);
+    }
+    getPlo();
+
+    return;
+  }, []);
+
+  async function editPlo(event) {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:4000/api/create-plo", {
-      method: "POST",
+    const response = await fetch(`http://localhost:4000/api/update-plo/${id}`, {
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -38,7 +62,6 @@ function App() {
     });
 
     const data = await response.json();
-    console.log(data);
 
     if (response.ok) {
       window.location.href = "/dashboard/admin";
@@ -48,7 +71,7 @@ function App() {
   return (
     <Container maxWidth="md">
       <Typography variant="h4" sx={{ my: 3 }}>
-        Create PLO
+        Edit PLO
       </Typography>
       <Stack spacing={2}>
         <TextField
@@ -56,6 +79,7 @@ function App() {
           variant="outlined"
           label="Name"
           color="secondary"
+          value={name}
         />
         <TextField
           value={label}
@@ -79,8 +103,8 @@ function App() {
           color="secondary"
         />
 
-        <Button onClick={createPlo} variant="contained" color="secondary">
-          Create
+        <Button onClick={editPlo} variant="contained" color="secondary">
+          Edit
         </Button>
       </Stack>
     </Container>

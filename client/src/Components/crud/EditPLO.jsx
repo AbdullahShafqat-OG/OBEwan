@@ -1,24 +1,13 @@
 import { useEffect, useState } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Button, IconButton, TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 
-function App(props) {
+function App() {
   const params = useParams();
   const id = params.name;
+
   const [name, setName] = useState(id);
   const [label, setLabel] = useState("");
   const [statement, setStatement] = useState("");
@@ -61,8 +50,6 @@ function App(props) {
       }),
     });
 
-    const data = await response.json();
-
     if (response.ok) {
       window.location.href = "/dashboard/admin";
     }
@@ -104,7 +91,7 @@ function App(props) {
         />
 
         <Button onClick={editPlo} variant="contained" color="secondary">
-          Edit
+          Save
         </Button>
       </Stack>
     </Container>

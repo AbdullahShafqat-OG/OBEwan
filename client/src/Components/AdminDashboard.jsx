@@ -2,20 +2,17 @@ import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Button, IconButton, Typography } from "@mui/material";
 
-export default function PloList() {
+export default function AdminDashboard() {
   const Plo = (props) => (
     <TableRow>
       <TableCell>{props.plo.name}</TableCell>
@@ -34,6 +31,7 @@ export default function PloList() {
       </TableCell>
     </TableRow>
   );
+
   const Course = (props) => (
     <TableRow>
       <TableCell>{props.course.name}</TableCell>
@@ -41,6 +39,7 @@ export default function PloList() {
       <TableCell>button or cascading view for instructors</TableCell>
     </TableRow>
   );
+
   const [plos, setPlos] = useState([]);
   const [courses, setCourses] = useState([]);
 
@@ -57,11 +56,10 @@ export default function PloList() {
       const plos = await response.json();
       setPlos(plos);
     }
-
     getPlos();
 
     return;
-  }, [plos.length]);
+  }, []);
 
   function ploList() {
     return plos.map((plo) => {
@@ -85,7 +83,7 @@ export default function PloList() {
     getCourses();
 
     return;
-  }, [courses.length]);
+  }, []);
 
   function courseList() {
     return courses.map((course) => {
@@ -93,7 +91,7 @@ export default function PloList() {
     });
   }
 
-  function testFunction() {
+  function createPLO() {
     window.location.href = "/dashboard/admin/createPlo";
   }
 
@@ -111,8 +109,6 @@ export default function PloList() {
         },
       }
     );
-
-    const data = await response;
 
     if (response.ok) {
       window.location.href = "/dashboard/admin";
@@ -149,10 +145,10 @@ export default function PloList() {
           variant="contained"
           align="right"
           onClick={() => {
-            testFunction();
+            createPLO();
           }}
         >
-          Create PLO
+          Add PLO
         </Button>
       </Box>
       <Table sx={{ border: "1px" }}>

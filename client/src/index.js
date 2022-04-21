@@ -1,10 +1,74 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./Components/Login";
+import InstructorDashboard from "./Components/InstructorDashboard";
+import AdminDashboard from "./Components/AdminDashboard";
+import CreatePLO from "./Components/crud/CreatePLO";
+import EditPLO from "./Components/crud/EditPLO";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#ffffff",
+    },
+    secondary: {
+      main: "#489BFC",
+    },
+    text: { primary: "#000000" },
+  },
+  typography: {
+    fontFamily: ['"DM Sans"', "sans-serif"].join(","),
+    button: {
+      fontWeight: "700",
+      fontSize: "16px",
+      textTransform: "none",
+    },
+    h4: {
+      fontWeight: "700",
+      fontSize: "32px",
+    },
+    h5: {
+      fontWeight: "700",
+      fontSize: "24px",
+    },
+    h6: {
+      fontWeight: "700",
+      fontSize: "20px",
+    },
+    subtitle: {
+      fontFamily: "DM Sans",
+      fontWeight: "500",
+    },
+  },
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Login />} />
+          <Route
+            exact
+            path="/dashboard/instructor"
+            element={<InstructorDashboard />}
+          />
+          <Route exact path="/dashboard/admin" element={<AdminDashboard />} />
+          <Route
+            exact
+            path="/dashboard/admin/createPlo"
+            element={<CreatePLO />}
+          />
+          <Route
+            exact
+            path="/dashboard/admin/editPlo/:name"
+            element={<EditPLO />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>
 );

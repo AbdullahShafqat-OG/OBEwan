@@ -20,7 +20,7 @@ export default function AdminDashboard() {
       <TableCell>{props.plo.statement}</TableCell>
       <TableCell>{props.plo.degree}</TableCell>
       <TableCell>
-        <Stack direction="row" spacing={0}>
+        <Stack direction="row" spacing={0} sx={{ justifyContent: "flex-end" }}>
           <IconButton onClick={() => editPLO(props.plo)}>
             <EditIcon></EditIcon>
           </IconButton>
@@ -158,7 +158,7 @@ export default function AdminDashboard() {
             <TableCell>Label</TableCell>
             <TableCell>Statement</TableCell>
             <TableCell>Degree</TableCell>
-            <TableCell align="center">Actions</TableCell>
+            <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>{ploList()}</TableBody>

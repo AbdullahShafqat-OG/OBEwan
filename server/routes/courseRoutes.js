@@ -12,20 +12,65 @@ app.get("/api/course-list", async (request, response) => {
     }
 });
 
+// returns all courses assigned to instructor
+// [
+//     {
+//         "_id": "6262881c57bbb627aca6ab30",
+//         "code": "SE-320",
+//         "name": "Machine Learning",
+//         "instructor": "machine@mail.com",
+//         "mapping": [
+//             {
+//                 "clo": "CLO-1",
+//                 "plo": [
+//                     "PLO-1",
+//                     "PLO-2",
+//                     "PLO-500",
+//                     "PLO-501"
+//                 ],
+//                 "_id": "6262881c57bbb627aca6ab31"
+//             },
+//             {
+//                 "clo": "CLO-2",
+//                 "plo": [
+//                     "PLO-3",
+//                     "PLO-5",
+//                     "PLO-69",
+//                     "PLO-1000"
+//                 ],
+//                 "_id": "6262881c57bbb627aca6ab32"
+//             }
+//         ],
+//         "__v": 0
+//     }
+// ]
+app.get("/api/course-list/:email", async (request, response) => {
+    const courses = await courseModel.find(
+        {}
+    ).where({ instructor: request.params.email });
+
+    try {
+        response.send(courses);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
+// OUTDATED
 // returns an array of strings
 // [
 //     "seema@mail.com",
 //     "majid@mail.com"
 // ]
-app.get("/api/course/instructor-list/:id", async (request, response) => {
-    const course = await courseModel.findById(request.params.id);
+// app.get("/api/course/instructor-list/:id", async (request, response) => {
+//     const course = await courseModel.findById(request.params.id);
 
-    try {
-        response.send(course.instructors);
-    } catch (error) {
-        response.status(500).send(error);
-    }
-});
+//     try {
+//         response.send(course.instructors);
+//     } catch (error) {
+//         response.status(500).send(error);
+//     }
+// });
 
 // returns an array of dictionaries
 // [

@@ -12,8 +12,8 @@ const CourseSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
-    instructors: {
-        type: [String]
+    instructor: {
+        type: String
     },
     mapping: {
         type: [{

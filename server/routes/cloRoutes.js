@@ -2,7 +2,7 @@ const express = require("express");
 const cloModel = require("../models/clo.model");
 const app = express()
 
-app.get("/clos", async (request, response) => {
+app.get("/api/clo-list", async (request, response) => {
     const clos = await cloModel.find({});
 
     try {
@@ -12,7 +12,7 @@ app.get("/clos", async (request, response) => {
     }
 });
 
-app.post("/clo", async (request, response) => {
+app.post("/api/create-clo", async (request, response) => {
     const clo = new cloModel(request.body);
 
     try {

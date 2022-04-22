@@ -34,9 +34,12 @@ export default function AdminDashboard() {
 
   const Course = (props) => (
     <TableRow>
+      <TableCell>{props.course.code}</TableCell>
       <TableCell>{props.course.name}</TableCell>
-      <TableCell>{props.course.instructors}</TableCell>
-      <TableCell>button or cascading view for instructors</TableCell>
+      <TableCell>{props.course.instructor}</TableCell>
+      <TableCell sx={{ whiteSpace: "pre" }}>
+        {props.course.clos.join("\n")}
+      </TableCell>
     </TableRow>
   );
 
@@ -78,6 +81,7 @@ export default function AdminDashboard() {
       }
 
       const courses = await response.json();
+      console.log(courses);
       setCourses(courses);
     }
     getCourses();
@@ -115,18 +119,41 @@ export default function AdminDashboard() {
     }
   }
 
+  function addCourse() {
+    window.location.href = "/dashboard/admin/addCourse";
+  }
+
   return (
     <Container>
       <Typography variant="h4" align="center" sx={{ m: "20px" }}>
         Admin Dashboard
       </Typography>
-      <Typography variant="h5">Courses</Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography variant="h5">Courses</Typography>
+        <Button
+          startIcon={<AddIcon></AddIcon>}
+          color="secondary"
+          variant="contained"
+          align="right"
+          onClick={() => {
+            addCourse();
+          }}
+        >
+          Add Course
+        </Button>
+      </Box>
       <Table sx={{ border: "1px" }}>
         <TableHead>
           <TableRow>
+            <TableCell>Code</TableCell>
             <TableCell>Name</TableCell>
-            <TableCell>Instructors</TableCell>
-            <TableCell>Mapping</TableCell>
+            <TableCell>Instructor</TableCell>
+            <TableCell>CLOs</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>{courseList()}</TableBody>

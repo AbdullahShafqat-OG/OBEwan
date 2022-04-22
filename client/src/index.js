@@ -4,7 +4,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./Components/Login";
 import InstructorDashboard from "./Components/InstructorDashboard";
 import AdminDashboard from "./Components/AdminDashboard";
+import Navbar from "./Components/Navbar";
 import CreatePLO from "./Components/crud/CreatePLO";
+import AddCourse from "./Components/crud/AddCourse";
 import EditPLO from "./Components/crud/EditPLO";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
@@ -49,6 +51,7 @@ root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route exact path="/" element={<Login />} />
           <Route
@@ -66,6 +69,11 @@ root.render(
             exact
             path="/dashboard/admin/editPlo/:name"
             element={<EditPLO />}
+          />
+          <Route
+            exact
+            path="/dashboard/admin/addCourse"
+            element={<AddCourse />}
           />
         </Routes>
       </BrowserRouter>

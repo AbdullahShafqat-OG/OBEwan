@@ -12,6 +12,16 @@ app.get("/api/plo-list", async (request, response) => {
     }
 });
 
+app.get("/api/get-plo/:id", async (request, response) => {
+    const plo = await ploModel.findById(request.params.id);
+
+    try {
+        response.send(plo);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
 app.post("/api/create-plo", async (request, response) => {
     const plo = new ploModel(request.body);
 

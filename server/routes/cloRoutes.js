@@ -34,4 +34,25 @@ app.delete("/api/delete-clo/:id", async (request, response) => {
     }
 });
 
+// using course code for convenience
+// returns list
+// [
+//     {
+//         "_id": "62625a285bce396c65fcfaa8",
+//         "name": "CLO1",
+//         "statement": "Understand the principles of Software Construction.",
+//         "course": "SE-312",
+//         "__v": 0
+//     }
+// ]
+app.get("/api/clo-list-course/:coursecode", async (request, response) => {
+    const clos = await cloModel.find({ course: request.params.coursecode });
+
+    try {
+        response.send(clos);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
 module.exports = app;

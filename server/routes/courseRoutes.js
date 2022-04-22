@@ -62,6 +62,41 @@ app.post("/api/create-course", async (request, response) => {
     }
 });
 
+// route for creating a new mapping 
+// three parameters 
+// id of course that for which mapping clos and plos
+// name of clo to be mapped onto i.e. "CLO-1"
+// name of plo to map i.e. "PLO-3"
+app.patch("/api/create-mapping/:id/:cloname/:ploname", async (request, response) => {
+    const reducedCourse = await courseModel.findOne({ _id: request.params.id }).
+        select({ mapping: {$elemMatch: {clo: request.params.cloname}} });
+
+    const ploList = reducedCourse.mapping[0].plo;
+
+    try {
+        if (ploList.indexOf(request.params.ploname) === -1) {
+            ploList.push(request.params.ploname);
+        }
+        else {
+            throw new Error('Mapping duplicate PLO');
+        }
+
+        const updatedCourse = await courseModel.updateOne(
+            { _id: request.params.id, "mapping.clo": request.params.cloname },
+            {
+                $set: {
+                    "mapping.$.plo": ploList,
+                }
+            }
+        );
+
+        // console.log(updatedCourse);
+        response.send(updatedCourse);
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
 app.delete("/api/delete-course/:id", async (request, response) => {
     try {
         const course = await courseModel.findByIdAndDelete(request.params.id);

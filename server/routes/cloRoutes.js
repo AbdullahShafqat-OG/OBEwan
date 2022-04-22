@@ -23,4 +23,15 @@ app.post("/api/create-clo", async (request, response) => {
     }
 });
 
+app.delete("/api/delete-clo/:id", async (request, response) => {
+    try {
+        const clo = await cloModel.findByIdAndDelete(request.params.id);
+
+        if (!clo) response.status(404).send("No item found");
+        response.status(200).send();
+    } catch (error) {
+        response.status(500).send(error);
+    }
+});
+
 module.exports = app;

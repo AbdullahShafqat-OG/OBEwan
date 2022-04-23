@@ -6,16 +6,16 @@ import { useParams } from "react-router-dom";
 
 function App() {
   const params = useParams();
-  const id = params.name;
+  const id = params.id;
 
-  const [name, setName] = useState(id);
+  const [name, setName] = useState("");
   const [label, setLabel] = useState("");
   const [statement, setStatement] = useState("");
   const [degree, setDegree] = useState("");
 
   useEffect(() => {
     async function getPlo() {
-      const response = await fetch(`http://localhost:4000/api/get-plo/${name}`);
+      const response = await fetch(`http://localhost:4000/api/get-plo/${id}`);
 
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
@@ -24,10 +24,12 @@ function App() {
       }
 
       const plo = await response.json();
+      console.log(plo);
 
-      setLabel(plo[0].label);
-      setStatement(plo[0].statement);
-      setDegree(plo[0].degree);
+      setName(plo.name);
+      setLabel(plo.label);
+      setStatement(plo.statement);
+      setDegree(plo.degree);
     }
     getPlo();
 
@@ -51,7 +53,7 @@ function App() {
     });
 
     if (response.ok) {
-      window.location.href = "/dashboard/admin";
+      window.location.href = "/plos";
     }
   }
 

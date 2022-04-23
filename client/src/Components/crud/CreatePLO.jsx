@@ -29,7 +29,7 @@ function App() {
     console.log(data);
 
     if (response.ok) {
-      window.location.href = "/dashboard/admin";
+      window.location.href = "/plos";
     }
   }
 

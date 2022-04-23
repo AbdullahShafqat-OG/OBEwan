@@ -8,7 +8,7 @@ const app = express()
 app.use(cors());
 app.use(express.json());
 
-app.get("/instructors", async (request, response) => {
+app.get("/api/instructor-list", async (request, response) => {
     const instructors = await instructorModel.find({});
 
     try {
@@ -48,7 +48,7 @@ app.post("/api/login", async(request, response) => {
     }
 });
 
-app.post("/instructor", async (request, response) => {
+app.post("/api/create-instructor", async (request, response) => {
     const instructor = new instructorModel(request.body);
 
     try {

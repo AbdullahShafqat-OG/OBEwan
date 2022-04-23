@@ -2,13 +2,19 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./Components/Login";
-import InstructorDashboard from "./Components/InstructorDashboard";
-import AdminDashboard from "./Components/AdminDashboard";
+import PLOsPage from "./Components/PLOsPage";
+import CLOsPage from "./Components/CLOsPage";
+import Courses from "./Components/Courses";
+import Dashboard from "./Components/Dashboard";
+import Results from "./Components/Results";
 import Navbar from "./Components/Navbar";
 import CreatePLO from "./Components/crud/CreatePLO";
+import CreateCLO from "./Components/crud/CreateCLO";
+import CreateMapping from "./Components/crud/CreateMapping";
 import AddCourse from "./Components/crud/AddCourse";
 import EditPLO from "./Components/crud/EditPLO";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import "./style.css";
 
 const theme = createTheme({
   palette: {
@@ -53,13 +59,16 @@ root.render(
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route exact path="/" element={<Login />} />
+          <Route exact path="/" element={<Dashboard />} />
+          <Route path="/results" element={<Results />} />
+          <Route exact path="/courses" element={<Courses />} />
+          <Route exact path="/clos" element={<CLOsPage />} />
           <Route
             exact
-            path="/dashboard/instructor"
-            element={<InstructorDashboard />}
+            path="/dashboard/admin/createClo"
+            element={<CreateCLO />}
           />
-          <Route exact path="/dashboard/admin" element={<AdminDashboard />} />
+          <Route exact path="/plos" element={<PLOsPage />} />
           <Route
             exact
             path="/dashboard/admin/createPlo"
@@ -67,7 +76,7 @@ root.render(
           />
           <Route
             exact
-            path="/dashboard/admin/editPlo/:name"
+            path="/dashboard/admin/editPlo/:id"
             element={<EditPLO />}
           />
           <Route
@@ -75,6 +84,7 @@ root.render(
             path="/dashboard/admin/addCourse"
             element={<AddCourse />}
           />
+          <Route exact path="/mapping/:id" element={<CreateMapping />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

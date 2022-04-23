@@ -14,11 +14,14 @@ const CourseSchema = new mongoose.Schema({
   },
   instructor: {
     type: String,
-    required: true,
-    trim: true,
   },
-  clos: {
-    type: [String],
+  mapping: {
+    type: [
+      {
+        clo: String,
+        plo: [String],
+      },
+    ],
   },
 });
 

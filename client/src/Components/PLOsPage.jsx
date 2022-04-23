@@ -32,19 +32,7 @@ export default function AdminDashboard() {
     </TableRow>
   );
 
-  const Course = (props) => (
-    <TableRow>
-      <TableCell>{props.course.code}</TableCell>
-      <TableCell>{props.course.name}</TableCell>
-      <TableCell>{props.course.instructor}</TableCell>
-      <TableCell sx={{ whiteSpace: "pre" }}>
-        {props.course.clos.join("\n")}
-      </TableCell>
-    </TableRow>
-  );
-
   const [plos, setPlos] = useState([]);
-  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     async function getPlos() {
@@ -70,42 +58,17 @@ export default function AdminDashboard() {
     });
   }
 
-  useEffect(() => {
-    async function getCourses() {
-      const response = await fetch("http://localhost:4000/api/course-list/");
-
-      if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-
-      const courses = await response.json();
-      console.log(courses);
-      setCourses(courses);
-    }
-    getCourses();
-
-    return;
-  }, []);
-
-  function courseList() {
-    return courses.map((course) => {
-      return <Course course={course} key={course._id} />;
-    });
-  }
-
   function createPLO() {
     window.location.href = "/dashboard/admin/createPlo";
   }
 
   function editPLO(plo) {
-    window.location.href = `/dashboard/admin/editPlo/${plo.name}`;
+    window.location.href = `/dashboard/admin/editPlo/${plo._id}`;
   }
 
   async function deletePLO(plo) {
     const response = await fetch(
-      `http://localhost:4000/api/delete-plo/${plo.name}`,
+      `http://localhost:4000/api/delete-plo/${plo._id}`,
       {
         method: "DELETE",
         headers: {
@@ -115,57 +78,20 @@ export default function AdminDashboard() {
     );
 
     if (response.ok) {
-      window.location.href = "/dashboard/admin";
+      window.location.href = "/plos";
     }
-  }
-
-  function addCourse() {
-    window.location.href = "/dashboard/admin/addCourse";
   }
 
   return (
     <Container>
-      <Typography variant="h4" align="center" sx={{ m: "20px" }}>
-        Admin Dashboard
-      </Typography>
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
+          mt: "40px",
         }}
       >
-        <Typography variant="h5">Courses</Typography>
-        <Button
-          startIcon={<AddIcon></AddIcon>}
-          color="secondary"
-          variant="contained"
-          align="right"
-          onClick={() => {
-            addCourse();
-          }}
-        >
-          Add Course
-        </Button>
-      </Box>
-      <Table sx={{ border: "1px" }}>
-        <TableHead>
-          <TableRow>
-            <TableCell>Code</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Instructor</TableCell>
-            <TableCell>CLOs</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{courseList()}</TableBody>
-      </Table>
-      <br />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <Typography variant="h5">PLO List</Typography>
+        <Typography variant="h5">PLOs</Typography>
         <Button
           startIcon={<AddIcon></AddIcon>}
           color="secondary"

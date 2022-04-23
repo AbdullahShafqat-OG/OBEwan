@@ -1,0 +1,8 @@
+body {
+  margin: 0;
+  background-color: #eeeeee;
+}
+
+.hidden {
+  display: none !important;
+}

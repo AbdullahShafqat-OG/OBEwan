@@ -13,20 +13,28 @@ export default function Navbar() {
         position="static"
         elevation={0}
         sx={{
-          boxShadow: "rgb(231 235 240) 0px -1px 1px inset",
+          boxShadow: "#bdbdbd 0px -1px 1px inset",
         }}
       >
         <Toolbar>
-          <Typography variant="h6" component="div" color="secondary">
-            OBE-WAN
-          </Typography>
+          <Button sx={{ p: 0 }} href="/">
+            <Typography variant="h6" component="div" color="secondary">
+              OBE-WAN
+            </Typography>
+          </Button>
           <Stack spacing={2} direction="row" sx={{ flexGrow: 1 }}>
-            <Button color="inherit" style={{ marginLeft: 26 }}>
+            <Button color="inherit" style={{ marginLeft: 26 }} href="/courses">
               Courses
             </Button>
-            <Button color="inherit">CLOs</Button>
-            <Button color="inherit">PLOs</Button>
-            <Button color="inherit">Results</Button>
+            <Button color="inherit" href="/clos">
+              CLOs
+            </Button>
+            <Button color="inherit" href="/plos">
+              PLOs
+            </Button>
+            <Button color="inherit" href="/results">
+              Results
+            </Button>
             <Button color="inherit">Reports</Button>
           </Stack>
           <Button color="secondary">Login</Button>

@@ -2,6 +2,16 @@ const express = require("express");
 const courseModel = require("../models/course.model");
 const app = express();
 
+app.get("/api/get-course/:id", async (request, response) => {
+  const course = await courseModel.findById(request.params.id);
+
+  try {
+    response.send(course);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
 app.get("/api/course-list", async (request, response) => {
   const courses = await courseModel.find({});
 
@@ -52,6 +62,7 @@ app.get("/api/course/mapping/:id", async (request, response) => {
 });
 
 app.post("/api/create-course", async (request, response) => {
+  console.log(request.body);
   const course = new courseModel(request.body);
 
   try {
@@ -59,6 +70,63 @@ app.post("/api/create-course", async (request, response) => {
     response.send(course);
   } catch (error) {
     response.status(500).send(error);
+  }
+});
+
+// route for creating a new mapping
+// three parameters
+// id of course that for which mapping clos and plos
+// name of clo to be mapped onto i.e. "CLO-1"
+// name of plo to map i.e. "PLO-3"
+app.patch("/api/create-mapping/:id", async (request, response) => {
+  const cloMapping = await courseModel
+    .findById(request.params.id)
+    .select({ mapping: { $elemMatch: { clo: request.body.clo } } });
+
+  if (cloMapping.mapping.length === 0) {
+    try {
+      const newMapping = {
+        clo: request.body.clo,
+        plo: [request.body.plo],
+      };
+
+      const updatedCourse = await courseModel.updateOne(
+        { _id: request.params.id },
+        {
+          $push: {
+            mapping: newMapping,
+          },
+        }
+      );
+
+      response.send(updatedCourse);
+    } catch (error) {
+      response.status(500).send(error);
+    }
+  } else {
+    const ploList = cloMapping.mapping[0].plo;
+
+    try {
+      if (ploList.indexOf(request.body.plo) === -1) {
+        ploList.push(request.body.plo);
+      } else {
+        throw new Error("Mapping duplicate PLO");
+      }
+
+      const updatedCourse = await courseModel.updateOne(
+        { _id: request.params.id, "mapping.clo": request.body.clo },
+        {
+          $set: {
+            "mapping.$.plo": ploList,
+          },
+        }
+      );
+
+      // console.log(updatedCourse);
+      response.send(updatedCourse);
+    } catch (error) {
+      response.status(500).send(error);
+    }
   }
 });
 

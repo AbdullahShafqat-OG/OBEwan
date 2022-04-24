@@ -119,35 +119,21 @@ app.patch("/api/create-mapping/:id/:cloname/:ploname", async (request, response)
 
     // clo already exists in the mapping
     if (reducedCourse.mapping.length > 0) {
-        console.log("CLO ALREADY EXISTS");
-
-        const ploList = reducedCourse.mapping[0].plo;
-
         try {
-            if (ploList.indexOf(request.params.ploname) === -1) {
-                ploList.push(request.params.ploname);
-            }
-            else {
-                throw new Error('Mapping duplicate PLO');
-            }
-    
             const updatedCourse = await courseModel.updateOne(
                 { _id: request.params.id, "mapping.clo": request.params.cloname },
                 {
-                    $set: {
-                        "mapping.$.plo": ploList,
+                    $addToSet: {
+                        "mapping.$.plo": request.params.ploname,
                     }
                 }
             );
     
-            // console.log(updatedCourse);
             response.send(updatedCourse);
         } catch (error) {
             response.status(500).send(error);
         }
     } else {
-        console.log("CLO DOES NOT EXIST");
-
         try {
             const newMapping = { clo: request.params.cloname, plo: [request.params.ploname] };
             const updatedCourseN = await courseModel.updateOne(

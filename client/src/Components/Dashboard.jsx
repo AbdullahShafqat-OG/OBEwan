@@ -32,7 +32,7 @@ export default function Dashboard() {
       return (
         <Card
           elevation={2}
-          sx={{ width: "30%", margin: "13px" }}
+          sx={{ width: "31%", margin: "12px" }}
           key={course._id}
         >
           <CardContent>
@@ -47,7 +47,7 @@ export default function Dashboard() {
               {course.code} <br /> Credits: 4.0
             </Typography>
           </CardContent>
-          <CardActions>
+          <CardActions sx={{ p: 2 }}>
             <Button
               size="small"
               color="secondary"

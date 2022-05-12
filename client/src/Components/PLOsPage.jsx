@@ -15,7 +15,7 @@ import { Button, IconButton, Typography } from "@mui/material";
 export default function AdminDashboard() {
   const Plo = (props) => (
     <TableRow>
-      <TableCell>{props.plo.name}</TableCell>
+      <TableCell sx={{ width: "50px" }}>{props.plo.name}</TableCell>
       <TableCell>{props.plo.label}</TableCell>
       <TableCell>{props.plo.statement}</TableCell>
       <TableCell>{props.plo.degree}</TableCell>

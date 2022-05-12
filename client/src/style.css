@@ -6,3 +6,9 @@ body {
 .hidden {
   display: none !important;
 }
+
+.MuiCard-root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

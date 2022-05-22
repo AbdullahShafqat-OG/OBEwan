@@ -1,10 +1,10 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 export default function Navbar() {
   return (
@@ -13,18 +13,21 @@ export default function Navbar() {
         position="static"
         elevation={0}
         sx={{
-          boxShadow: "#bdbdbd 0px -1px 1px inset",
+          boxShadow: '#bdbdbd 0px -1px 1px inset',
         }}
       >
         <Toolbar>
           <Button sx={{ p: 0 }} href="/">
-            <Typography variant="h6" component="div" color="secondary">
+            <Typography variant="logo" component="div" color="secondary">
               OBE-WAN
             </Typography>
           </Button>
           <Stack spacing={2} direction="row" sx={{ flexGrow: 1 }}>
             <Button color="inherit" style={{ marginLeft: 26 }} href="/courses">
               Courses
+            </Button>
+            <Button color="inherit" href="/activities">
+              Activities
             </Button>
             <Button color="inherit" href="/clos">
               CLOs

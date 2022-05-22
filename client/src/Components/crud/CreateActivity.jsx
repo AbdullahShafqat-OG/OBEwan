@@ -6,11 +6,15 @@ import { FormControl } from '@mui/material';
 import { InputLabel } from '@mui/material';
 import { Select } from '@mui/material';
 import { MenuItem } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
 function App() {
+  const params = useParams();
+  const code = params.code;
+
   const [name, setName] = useState('');
   const [courses, setCourses] = useState([]);
-  const [course, setCourse] = useState('SE-321');
+  const [course, setCourse] = useState(code);
   const [clo, setClo] = useState('');
   const [clos, setClos] = useState([]);
   const [weightage, setWeightage] = useState('');

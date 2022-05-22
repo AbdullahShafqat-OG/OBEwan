@@ -15,6 +15,7 @@ import CreateActivity from './Components/crud/CreateActivity';
 import CreateMapping from './Components/crud/CreateMapping';
 import AddCourse from './Components/crud/AddCourse';
 import EditPLO from './Components/crud/EditPLO';
+import AddMarks from './Components/crud/AddMarks';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import './style.css';
 
@@ -44,8 +45,12 @@ const theme = createTheme({
       fontSize: '24px',
     },
     h6: {
+      fontWeight: '500',
+      fontSize: '16px',
+    },
+    logo: {
       fontWeight: '700',
-      fontSize: '20px',
+      fontSize: '16px',
     },
     subtitle: {
       fontFamily: 'DM Sans',
@@ -68,12 +73,13 @@ root.render(
           <Route path="/clos" element={<CLOsPage />} />
           <Route path="/plos" element={<PLOsPage />} />
           <Route
-            path="/dashboard/admin/createActivity"
+            path="/dashboard/admin/createActivity/:code"
             element={<CreateActivity />}
           />
           <Route path="/dashboard/admin/createClo" element={<CreateCLO />} />
           <Route path="/dashboard/admin/createPlo" element={<CreatePLO />} />
           <Route path="/dashboard/admin/editPlo/:id" element={<EditPLO />} />
+          <Route path="/dashboard/admin/addMarks/:id" element={<AddMarks />} />
           <Route path="/dashboard/admin/addCourse" element={<AddCourse />} />
           <Route path="/mapping/:id" element={<CreateMapping />} />
         </Routes>

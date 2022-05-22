@@ -7,9 +7,13 @@ import TableRow from '@mui/material/TableRow';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import EditIcon from '@mui/icons-material/Edit';
+import { FormControl } from '@mui/material';
+import { InputLabel } from '@mui/material';
+import { Select } from '@mui/material';
+import { MenuItem } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 import { Button, IconButton, Typography } from '@mui/material';
 
 export default function AdminDashboard() {
@@ -22,6 +26,9 @@ export default function AdminDashboard() {
       <TableCell>{props.activity.weightage}</TableCell>
       <TableCell>
         <Stack direction="row" spacing={0} sx={{ justifyContent: 'flex-end' }}>
+          <IconButton onClick={() => addMarks(props.activity)}>
+            <EditIcon></EditIcon>
+          </IconButton>
           <IconButton onClick={() => deleteActivity(props.activity)}>
             <DeleteIcon></DeleteIcon>
           </IconButton>
@@ -31,10 +38,14 @@ export default function AdminDashboard() {
   );
 
   const [activities, setActivities] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [course, setCourse] = useState('SE-321');
 
   useEffect(() => {
     async function getActivities() {
-      const response = await fetch('http://localhost:4000/api/activity-list/');
+      const response = await fetch(
+        `http://localhost:4000/api/course-activity-list/${course}`
+      );
 
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
@@ -48,7 +59,7 @@ export default function AdminDashboard() {
     getActivities();
 
     return;
-  }, []);
+  }, [course]);
 
   function activityList() {
     return activities.map((activity) => {
@@ -57,7 +68,7 @@ export default function AdminDashboard() {
   }
 
   function createActivity() {
-    window.location.href = '/dashboard/admin/createActivity';
+    window.location.href = `/dashboard/admin/createActivity/${course}`;
   }
 
   async function deleteActivity(activity) {
@@ -76,6 +87,38 @@ export default function AdminDashboard() {
     }
   }
 
+  useEffect(() => {
+    async function getCourses() {
+      const response = await fetch('http://localhost:4000/api/course-list');
+
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+
+      const courses = await response.json();
+      setCourses(courses);
+    }
+    getCourses();
+
+    return;
+  }, []);
+
+  function courseList() {
+    return courses.map((course) => {
+      return (
+        <MenuItem value={course.code} key={course._id}>
+          {course.name}
+        </MenuItem>
+      );
+    });
+  }
+
+  function addMarks(activity) {
+    window.location.href = `/dashboard/admin/addMarks/${activity._id}`;
+  }
+
   return (
     <Container>
       <Box
@@ -85,7 +128,8 @@ export default function AdminDashboard() {
           mt: '40px',
         }}
       >
-        <Typography variant="h5">CLOs</Typography>
+        <Typography variant="h5">Activities</Typography>
+
         <Button
           startIcon={<AddIcon></AddIcon>}
           color="secondary"
@@ -95,9 +139,22 @@ export default function AdminDashboard() {
             createActivity();
           }}
         >
-          Add CLO
+          Add Activity
         </Button>
       </Box>
+
+      <FormControl sx={{ width: '40%', my: '20px' }}>
+        <InputLabel color="secondary">Course</InputLabel>
+        <Select
+          label="Course"
+          color="secondary"
+          value={course}
+          onChange={(e) => setCourse(e.target.value)}
+        >
+          {courseList()}
+        </Select>
+      </FormControl>
+
       <Table sx={{ border: '1px' }}>
         <TableHead>
           <TableRow>

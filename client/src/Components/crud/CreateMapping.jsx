@@ -1,23 +1,23 @@
-import { useState, useEffect } from "react";
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import { Button, Typography } from "@mui/material";
-import { FormControl } from "@mui/material";
-import { InputLabel } from "@mui/material";
-import { Select } from "@mui/material";
-import { MenuItem } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
+import { Button, Typography } from '@mui/material';
+import { FormControl } from '@mui/material';
+import { InputLabel } from '@mui/material';
+import { Select } from '@mui/material';
+import { MenuItem } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
 function App() {
   const params = useParams();
   const courseId = params.id;
 
-  const [course, setCourse] = useState("");
+  const [course, setCourse] = useState('');
 
-  const [clo, setClo] = useState("");
+  const [clo, setClo] = useState('');
   const [clos, setClos] = useState([]);
 
-  const [plo, setPlo] = useState("");
+  const [plo, setPlo] = useState('');
   const [plos, setPlos] = useState([]);
 
   useEffect(() => {
@@ -84,9 +84,9 @@ function App() {
     const response = await fetch(
       `http://localhost:4000/api/create-mapping/${courseId}`,
       {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           clo,
@@ -109,6 +109,7 @@ function App() {
       );
     });
   }
+
   function ploList() {
     return plos.map((plo) => {
       return (

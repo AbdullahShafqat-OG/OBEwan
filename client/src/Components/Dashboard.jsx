@@ -1,18 +1,18 @@
-import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
-import { useState, useEffect } from "react";
+import * as React from 'react';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import { useState, useEffect } from 'react';
 
 export default function Dashboard() {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     async function getCourses() {
-      const response = await fetch("http://localhost:4000/api/course-list/");
+      const response = await fetch('http://localhost:4000/api/course-list/');
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         window.alert(message);
@@ -25,14 +25,14 @@ export default function Dashboard() {
     getCourses();
 
     return;
-  }, [courses]);
+  }, []);
 
   function courseList() {
     return courses.map((course) => {
       return (
         <Card
           elevation={2}
-          sx={{ width: "31%", margin: "12px" }}
+          sx={{ width: '31%', margin: '12px' }}
           key={course._id}
         >
           <CardContent>
@@ -60,7 +60,7 @@ export default function Dashboard() {
               size="small"
               color="secondary"
               variant="contained"
-              href={"/mapping/" + course._id}
+              href={'/mapping/' + course._id}
             >
               CLO/PLO Mapping
             </Button>
@@ -71,7 +71,7 @@ export default function Dashboard() {
   }
 
   return (
-    <Stack direction="row" sx={{ margin: "50px", flexWrap: "wrap" }}>
+    <Stack direction="row" sx={{ margin: '50px', flexWrap: 'wrap' }}>
       {courseList()}
     </Stack>
   );

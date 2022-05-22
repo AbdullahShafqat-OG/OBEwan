@@ -1,8 +1,8 @@
-const express = require("express");
-const courseModel = require("../models/course.model");
+const express = require('express');
+const courseModel = require('../models/course.model');
 const app = express();
 
-app.get("/api/get-course/:id", async (request, response) => {
+app.get('/api/get-course/:id', async (request, response) => {
   const course = await courseModel.findById(request.params.id);
 
   try {
@@ -12,7 +12,7 @@ app.get("/api/get-course/:id", async (request, response) => {
   }
 });
 
-app.get("/api/course-list", async (request, response) => {
+app.get('/api/course-list', async (request, response) => {
   const courses = await courseModel.find({});
 
   try {
@@ -27,7 +27,7 @@ app.get("/api/course-list", async (request, response) => {
 //     "seema@mail.com",
 //     "majid@mail.com"
 // ]
-app.get("/api/course/instructor-list/:id", async (request, response) => {
+app.get('/api/course/instructor-list/:id', async (request, response) => {
   const course = await courseModel.findById(request.params.id);
 
   try {
@@ -51,7 +51,7 @@ app.get("/api/course/instructor-list/:id", async (request, response) => {
 //
 // getting clo that is being mapped to ==> course.mapping[index]['clo']
 // getting plos being mapped against clo ==> course.mapping[index]['plo']
-app.get("/api/course/mapping/:id", async (request, response) => {
+app.get('/api/course/mapping/:id', async (request, response) => {
   const course = await courseModel.findById(request.params.id);
 
   try {
@@ -61,7 +61,7 @@ app.get("/api/course/mapping/:id", async (request, response) => {
   }
 });
 
-app.post("/api/create-course", async (request, response) => {
+app.post('/api/create-course', async (request, response) => {
   console.log(request.body);
   const course = new courseModel(request.body);
 
@@ -78,7 +78,7 @@ app.post("/api/create-course", async (request, response) => {
 // id of course that for which mapping clos and plos
 // name of clo to be mapped onto i.e. "CLO-1"
 // name of plo to map i.e. "PLO-3"
-app.patch("/api/create-mapping/:id", async (request, response) => {
+app.patch('/api/create-mapping/:id', async (request, response) => {
   const cloMapping = await courseModel
     .findById(request.params.id)
     .select({ mapping: { $elemMatch: { clo: request.body.clo } } });
@@ -110,14 +110,14 @@ app.patch("/api/create-mapping/:id", async (request, response) => {
       if (ploList.indexOf(request.body.plo) === -1) {
         ploList.push(request.body.plo);
       } else {
-        throw new Error("Mapping duplicate PLO");
+        throw new Error('Mapping duplicate PLO');
       }
 
       const updatedCourse = await courseModel.updateOne(
-        { _id: request.params.id, "mapping.clo": request.body.clo },
+        { _id: request.params.id, 'mapping.clo': request.body.clo },
         {
           $set: {
-            "mapping.$.plo": ploList,
+            'mapping.$.plo': ploList,
           },
         }
       );
@@ -130,11 +130,11 @@ app.patch("/api/create-mapping/:id", async (request, response) => {
   }
 });
 
-app.delete("/api/delete-course/:id", async (request, response) => {
+app.delete('/api/delete-course/:id', async (request, response) => {
   try {
     const course = await courseModel.findByIdAndDelete(request.params.id);
 
-    if (!course) response.status(404).send("No item found");
+    if (!course) response.status(404).send('No item found');
     response.status(200).send();
   } catch (error) {
     response.status(500).send(error);

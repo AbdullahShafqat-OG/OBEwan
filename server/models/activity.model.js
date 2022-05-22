@@ -8,9 +8,7 @@ const ActivitySchema = new mongoose.Schema({
   },
   maxMarks: {
     type: Number,
-    lowercase: true,
     required: true,
-    unique: true,
   },
   course: {
     type: String,

@@ -7,6 +7,7 @@ const ploRouter = require('./routes/ploRoutes.js');
 const cloRouter = require('./routes/cloRoutes.js');
 const courseRouter = require('./routes/courseRoutes.js');
 const activityRouter = require('./routes/activityRoutes.js');
+const studentRouter = require('./routes/studentRoutes.js');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(ploRouter);
 app.use(cloRouter);
 app.use(courseRouter);
 app.use(activityRouter);
+app.use(studentRouter);
 
 app.listen(4000, () => {
   console.log('Server running on Port: 4000...');

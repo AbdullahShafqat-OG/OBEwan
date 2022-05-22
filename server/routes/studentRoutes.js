@@ -15,10 +15,14 @@ app.put('/api/create-student-record', async (request, response) => {
       response.status(500).send(error);
     }
   } else {
-    const newMarks = request.body.marksArr;
+    const newMarks = request.body.marksArr[0];
 
     try {
-      if (student.marksArr.indexOf(newMarks) === -1) {
+      const index = student[0].marksArr.findIndex((arr) => {
+        return arr.activityId === newMarks.activityId;
+      });
+
+      if (index === -1) {
         const updatedStudent = await studentModel.updateOne(
           { regNo: request.body.regNo },
           {
@@ -30,10 +34,10 @@ app.put('/api/create-student-record', async (request, response) => {
 
         response.send(updatedStudent);
       } else {
-        throw new Error('Adding duplicate marks');
+        throw new Error('Marks for the activity have already been added');
       }
     } catch (error) {
-      response.status(500).send(error);
+      response.status(500).send(error.toString());
     }
   }
 });

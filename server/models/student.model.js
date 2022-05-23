@@ -15,6 +15,7 @@ const StudentSchema = new mongoose.Schema({
     type: [
       {
         marks: Number,
+        cloScore: Number,
         activityId: String,
       },
     ],

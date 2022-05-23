@@ -1,12 +1,30 @@
 const express = require('express');
 const studentModel = require('../models/student.model');
+const activityModel = require('../models/activity.model');
 const app = express();
 
 app.put('/api/create-student-record', async (request, response) => {
+  const activityId = request.body.activityId;
+  const activity = await activityModel.findById(activityId);
+
+  // calculating the clo score according to weightage assigned to activity
+  const cloScore =
+    (request.body.marks / activity.maxMarks) * activity.weightage;
+
   let student = await studentModel.find({ regNo: request.body.regNo });
 
+  const newMarks = {
+    marks: request.body.marks,
+    cloScore: cloScore,
+    activityId: activityId,
+  };
+
   if (student.length === 0) {
-    student = new studentModel(request.body);
+    student = new studentModel({
+      regNo: request.body.regNo,
+      name: request.body.name,
+      marksArr: [newMarks],
+    });
 
     try {
       await student.save();
@@ -15,11 +33,9 @@ app.put('/api/create-student-record', async (request, response) => {
       response.status(500).send(error);
     }
   } else {
-    const newMarks = request.body.marksArr[0];
-
     try {
       const index = student[0].marksArr.findIndex((arr) => {
-        return arr.activityId === newMarks.activityId;
+        return arr.activityId === activityId;
       });
 
       if (index === -1) {

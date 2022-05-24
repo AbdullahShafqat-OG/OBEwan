@@ -22,6 +22,29 @@ app.get('/api/course-list', async (request, response) => {
   }
 });
 
+// clo list for a particular plo and course
+app.post('/api/course-clo-list', async (request, response) => {
+  const courses = await courseModel.find({ code: request.body.course });
+
+  const mappings = courses[0].mapping;
+
+  // destructuring mapping into array of clos
+  // const clos = mappings.mapping.map((mapping) => mapping.clo);
+  let clos = [];
+
+  mappings.forEach((mapping) => {
+    if (mapping.plo.indexOf(request.body.plo) !== -1) {
+      clos.push(mapping.clo);
+    }
+  });
+
+  try {
+    response.send(clos);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
 // returns an array of strings
 // [
 //     "seema@mail.com",

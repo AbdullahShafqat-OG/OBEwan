@@ -3,6 +3,18 @@ const studentModel = require('../models/student.model');
 const activityModel = require('../models/activity.model');
 const app = express();
 
+app.get('/api/get-student-activity/:activityId', async (request, response) => {
+  const student = await studentModel.find({
+    marksArr: { $elemMatch: { activityId: request.params.activityId } },
+  });
+
+  try {
+    response.send(student);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
 app.put('/api/create-student-record', async (request, response) => {
   const activityId = request.body.activityId;
   const activity = await activityModel.findById(activityId);

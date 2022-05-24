@@ -44,6 +44,19 @@ app.get('/api/course-activity-list/:code', async (request, response) => {
   }
 });
 
+app.post('/api/clo-activity-list/', async (request, response) => {
+  const activities = await activityModel.find({
+    clo: request.body.clo,
+    course: request.body.course,
+  });
+
+  try {
+    response.send(activities);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
 app.delete('/api/delete-activity/:id', async (request, response) => {
   try {
     const activity = await activityModel.findByIdAndDelete(request.params.id);

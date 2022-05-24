@@ -35,10 +35,9 @@ export default function Navbar() {
             <Button color="inherit" href="/plos">
               PLOs
             </Button>
-            <Button color="inherit" href="/results">
-              Results
+            <Button color="inherit" href="/reports">
+              Reports
             </Button>
-            <Button color="inherit">Reports</Button>
           </Stack>
           <Button color="secondary">Login</Button>
         </Toolbar>

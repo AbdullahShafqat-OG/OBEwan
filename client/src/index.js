@@ -8,7 +8,6 @@ import CLOsPage from './Components/CLOsPage';
 import Courses from './Components/Courses';
 import Activities from './Components/Activities';
 import Dashboard from './Components/Dashboard';
-import Results from './Components/Results';
 import Navbar from './Components/Navbar';
 import CreatePLO from './Components/crud/CreatePLO';
 import CreateCLO from './Components/crud/CreateCLO';
@@ -68,12 +67,11 @@ root.render(
         <Navbar />
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/results" element={<Results />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/activities" element={<Activities />} />
           <Route path="/clos" element={<CLOsPage />} />
           <Route path="/plos" element={<PLOsPage />} />
-          <Route path="/ploScores" element={<PLOScores />} />
+          <Route path="/reports" element={<PLOScores />} />
           <Route
             path="/dashboard/admin/createActivity/:code"
             element={<CreateActivity />}

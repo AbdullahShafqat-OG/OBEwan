@@ -52,9 +52,9 @@ export default function Dashboard() {
               size="small"
               color="secondary"
               variant="contained"
-              href="/results"
+              href="/activities"
             >
-              Marks
+              Activities
             </Button>
             <Button
               size="small"

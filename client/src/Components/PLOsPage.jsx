@@ -1,26 +1,27 @@
-import React, { useEffect, useState } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
-import { Button, IconButton, Typography } from "@mui/material";
+import React, { useEffect, useState } from 'react';
+import Card from '@mui/material/Card';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
+import { Button, IconButton, Typography } from '@mui/material';
 
 export default function AdminDashboard() {
   const Plo = (props) => (
     <TableRow>
-      <TableCell sx={{ width: "50px" }}>{props.plo.name}</TableCell>
+      <TableCell sx={{ width: '50px' }}>{props.plo.name}</TableCell>
       <TableCell>{props.plo.label}</TableCell>
       <TableCell>{props.plo.statement}</TableCell>
       <TableCell>{props.plo.degree}</TableCell>
       <TableCell>
-        <Stack direction="row" spacing={0} sx={{ justifyContent: "flex-end" }}>
+        <Stack direction="row" spacing={0} sx={{ justifyContent: 'flex-end' }}>
           <IconButton onClick={() => editPLO(props.plo)}>
             <EditIcon></EditIcon>
           </IconButton>
@@ -36,7 +37,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     async function getPlos() {
-      const response = await fetch("http://localhost:4000/api/plo-list/");
+      const response = await fetch('http://localhost:4000/api/plo-list/');
 
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
@@ -59,7 +60,7 @@ export default function AdminDashboard() {
   }
 
   function createPLO() {
-    window.location.href = "/dashboard/admin/createPlo";
+    window.location.href = '/dashboard/admin/createPlo';
   }
 
   function editPLO(plo) {
@@ -70,15 +71,15 @@ export default function AdminDashboard() {
     const response = await fetch(
       `http://localhost:4000/api/delete-plo/${plo._id}`,
       {
-        method: "DELETE",
+        method: 'DELETE',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       }
     );
 
     if (response.ok) {
-      window.location.href = "/plos";
+      window.location.href = '/plos';
     }
   }
 
@@ -86,9 +87,9 @@ export default function AdminDashboard() {
     <Container>
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          mt: "40px",
+          display: 'flex',
+          justifyContent: 'space-between',
+          mt: '40px',
         }}
       >
         <Typography variant="h5">PLOs</Typography>
@@ -104,18 +105,21 @@ export default function AdminDashboard() {
           Add PLO
         </Button>
       </Box>
-      <Table sx={{ border: "1px" }}>
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Label</TableCell>
-            <TableCell>Statement</TableCell>
-            <TableCell>Degree</TableCell>
-            <TableCell align="right">Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{ploList()}</TableBody>
-      </Table>
+
+      <Card elevation={2} sx={{ my: 2 }}>
+        <Table sx={{ border: '1px' }}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Label</TableCell>
+              <TableCell>Statement</TableCell>
+              <TableCell>Degree</TableCell>
+              <TableCell align="right">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{ploList()}</TableBody>
+        </Table>
+      </Card>
     </Container>
   );
 }

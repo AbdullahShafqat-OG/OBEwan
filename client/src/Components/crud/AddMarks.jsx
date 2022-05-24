@@ -57,12 +57,7 @@ function App() {
         console.log(student);
         const regNo = student.regNo;
         const name = student.name;
-        const marksArr = [
-          {
-            marks: student.marks,
-            activityId: activityId,
-          },
-        ];
+        const marks = student.marks;
 
         const response = await fetch(
           'http://localhost:4000/api/create-student-record',
@@ -74,7 +69,8 @@ function App() {
             body: JSON.stringify({
               regNo,
               name,
-              marksArr,
+              marks,
+              activityId,
             }),
           }
         );

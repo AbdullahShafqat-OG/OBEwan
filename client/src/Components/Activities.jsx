@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Card from '@mui/material/Card';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -155,19 +156,21 @@ export default function AdminDashboard() {
         </Select>
       </FormControl>
 
-      <Table sx={{ border: '1px' }}>
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Max Marks</TableCell>
-            <TableCell>Course</TableCell>
-            <TableCell>CLO</TableCell>
-            <TableCell>Weightage</TableCell>
-            <TableCell align="right">Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{activityList()}</TableBody>
-      </Table>
+      <Card elevation={2}>
+        <Table sx={{ border: '1px' }} size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Max Marks</TableCell>
+              <TableCell>Course</TableCell>
+              <TableCell>CLO</TableCell>
+              <TableCell>Weightage</TableCell>
+              <TableCell align="right">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{activityList()}</TableBody>
+        </Table>
+      </Card>
     </Container>
   );
 }

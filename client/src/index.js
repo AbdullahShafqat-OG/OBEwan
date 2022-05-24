@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './Components/Login';
 import PLOsPage from './Components/PLOsPage';
+import PLOScores from './Components/PLOScores';
 import CLOsPage from './Components/CLOsPage';
 import Courses from './Components/Courses';
 import Activities from './Components/Activities';
@@ -72,6 +73,7 @@ root.render(
           <Route path="/activities" element={<Activities />} />
           <Route path="/clos" element={<CLOsPage />} />
           <Route path="/plos" element={<PLOsPage />} />
+          <Route path="/ploScores" element={<PLOScores />} />
           <Route
             path="/dashboard/admin/createActivity/:code"
             element={<CreateActivity />}

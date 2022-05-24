@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
-import { Button, IconButton, Typography } from "@mui/material";
+import React, { useEffect, useState } from 'react';
+import Card from '@mui/material/Card';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
+import { Button, IconButton, Typography } from '@mui/material';
 
 export default function AdminDashboard() {
   const Course = (props) => (
@@ -19,7 +20,7 @@ export default function AdminDashboard() {
       <TableCell>{props.course.name}</TableCell>
       <TableCell>{props.course.instructor}</TableCell>
       <TableCell>
-        <Stack direction="row" spacing={0} sx={{ justifyContent: "flex-end" }}>
+        <Stack direction="row" spacing={0} sx={{ justifyContent: 'flex-end' }}>
           <IconButton onClick={() => deleteCourse(props.course)}>
             <DeleteIcon></DeleteIcon>
           </IconButton>
@@ -32,7 +33,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     async function getCourses() {
-      const response = await fetch("http://localhost:4000/api/course-list/");
+      const response = await fetch('http://localhost:4000/api/course-list/');
 
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
@@ -56,22 +57,22 @@ export default function AdminDashboard() {
   }
 
   function addCourse() {
-    window.location.href = "/dashboard/admin/addCourse";
+    window.location.href = '/dashboard/admin/addCourse';
   }
 
   async function deleteCourse(course) {
     const response = await fetch(
       `http://localhost:4000/api/delete-course/${course._id}`,
       {
-        method: "DELETE",
+        method: 'DELETE',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       }
     );
 
     if (response.ok) {
-      window.location.href = "/courses";
+      window.location.href = '/courses';
     }
   }
 
@@ -79,9 +80,9 @@ export default function AdminDashboard() {
     <Container>
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          mt: "40px",
+          display: 'flex',
+          justifyContent: 'space-between',
+          mt: '40px',
         }}
       >
         <Typography variant="h5">Courses</Typography>
@@ -97,17 +98,20 @@ export default function AdminDashboard() {
           Add Course
         </Button>
       </Box>
-      <Table sx={{ border: "1px" }}>
-        <TableHead>
-          <TableRow>
-            <TableCell>Code</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Instructor</TableCell>
-            <TableCell align="right">Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{courseList()}</TableBody>
-      </Table>
+
+      <Card elevation={2} sx={{ mt: 2 }}>
+        <Table sx={{ border: '1px', backgroundColor: 'white' }}>
+          <TableHead sx={{ fontWeight: '700' }}>
+            <TableRow>
+              <TableCell>Code</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Instructor</TableCell>
+              <TableCell align="right">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{courseList()}</TableBody>
+        </Table>
+      </Card>
     </Container>
   );
 }

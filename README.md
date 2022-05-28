@@ -1,7 +1,2 @@
-# OBEwan
-Software Construction Project
-
-###### Data Entry Guidelines
-**Instructors** <br />
-Mail: \<name\>@mail.com <br />
-Password: pass
+# OBE-WAN
+OBE-WAN is an outcome based education assessment tool builting using React, Express and MongoDB.

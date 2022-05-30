@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
+// The navigation bar, allowing for quick navigation to various features of the website
 export default function Navbar() {
   return (
     <Box sx={{ flexGrow: 1 }}>

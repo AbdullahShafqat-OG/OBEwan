@@ -109,11 +109,9 @@ app.post('/api/create-course', async (request, response) => {
   }
 });
 
-// route for creating a new mapping
-// three parameters
-// id of course that for which mapping clos and plos
-// name of clo to be mapped onto i.e. "CLO-1"
-// name of plo to map i.e. "PLO-3"
+// @params id of the course for which mapping clos and plos
+// @params name of clo to be mapped onto i.e. "CLO-1"
+// @params name of plo to map i.e. "PLO-3"
 app.patch('/api/create-mapping/:id', async (request, response) => {
   const cloMapping = await courseModel
     .findById(request.params.id)

@@ -17,6 +17,8 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import { Button, IconButton, Typography } from '@mui/material';
 
+// Prints out the admin view 
+// Requires that the admin be logged in
 export default function AdminDashboard() {
   const Activity = (props) => (
     <TableRow>

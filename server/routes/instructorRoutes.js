@@ -1,3 +1,4 @@
+// This file contains all the information pertaining to instructor routes 
 const express = require("express");
 const cors = require("cors");
 

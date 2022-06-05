@@ -2,6 +2,15 @@ const express = require('express');
 const courseModel = require('../models/course.model');
 const app = express();
 
+// @param id is the course code like 627b5a9d9296a89f4bcccdf0
+// @returns course object from the database
+// {
+//   "_id",
+//   "code",
+//   "name",
+//   "instructor",
+//   "mapping"
+// }
 app.get('/api/get-course/:id', async (request, response) => {
   const course = await courseModel.findById(request.params.id);
 
@@ -12,6 +21,8 @@ app.get('/api/get-course/:id', async (request, response) => {
   }
 });
 
+// @returns all the course objects from the database
+// [{course object 1}, {course object 2}]
 app.get('/api/course-list', async (request, response) => {
   const courses = await courseModel.find({});
 
@@ -22,7 +33,7 @@ app.get('/api/course-list', async (request, response) => {
   }
 });
 
-// clo list for a particular plo and course
+// @returns clo list for a particular plo and course
 app.post('/api/course-clo-list', async (request, response) => {
   const courses = await courseModel.find({ code: request.body.course });
 
@@ -45,7 +56,8 @@ app.post('/api/course-clo-list', async (request, response) => {
   }
 });
 
-// returns an array of strings
+// @params id of course like 627b5a9d9296a89f4bcccdf0
+// @returns an array of strings
 // [
 //     "seema@mail.com",
 //     "majid@mail.com"
@@ -60,7 +72,8 @@ app.get('/api/course/instructor-list/:id', async (request, response) => {
   }
 });
 
-// returns an array of dictionaries
+// @params id of course like 627b5a9d9296a89f4bcccdf0
+// @returns an array of dictionaries
 // [
 //     {
 //         "clo": "CLO-1",
@@ -96,11 +109,9 @@ app.post('/api/create-course', async (request, response) => {
   }
 });
 
-// route for creating a new mapping
-// three parameters
-// id of course that for which mapping clos and plos
-// name of clo to be mapped onto i.e. "CLO-1"
-// name of plo to map i.e. "PLO-3"
+// @params id of the course for which mapping clos and plos
+// @params name of clo to be mapped onto i.e. "CLO-1"
+// @params name of plo to map i.e. "PLO-3"
 app.patch('/api/create-mapping/:id', async (request, response) => {
   const cloMapping = await courseModel
     .findById(request.params.id)
@@ -153,6 +164,15 @@ app.patch('/api/create-mapping/:id', async (request, response) => {
   }
 });
 
+// @params id of course like 627b5a9d9296a89f4bcccdf0
+// @returns model of deleted course object
+// {
+//   "_id",
+//   "code",
+//   "name",
+//   "instructor",
+//   "mapping"
+// }
 app.delete('/api/delete-course/:id', async (request, response) => {
   try {
     const course = await courseModel.findByIdAndDelete(request.params.id);

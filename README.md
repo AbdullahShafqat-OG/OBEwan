@@ -25,11 +25,13 @@ Seperate Admin and Instructor portals
 Option to download the generated PLO and CLO reports
 
 ## Getting Started
+Clone the repository in a directory and run the following commands in seperate terminals
 ```git clone 
 cd server
 npm install .
-nodemon server  
-
+nodemon server
+```
+```
 cd client
 npm install .
 npm start

@@ -2,7 +2,7 @@ const express = require('express');
 const foodModel = require('../models/food.model');
 const app = express();
 
-app.get('/foods', async (request, response) => {
+app.get('/foods-list', async (request, response) => {
   const foods = await foodModel.find({});
 
   try {

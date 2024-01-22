@@ -17,6 +17,9 @@ import { InputLabel } from '@mui/material';
 import { Select } from '@mui/material';
 import { MenuItem } from '@mui/material';
 
+// Only the Admin is allowed to edit the CLOs table
+// Requirements: IF the admin is logged in, then display table and allow for edits
+// to be made. If not, then only display the table without allowing for edits
 export default function AdminDashboard() {
   const [clos, setClos] = useState([]);
   const [course, setCourse] = useState('SE-321');

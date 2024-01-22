@@ -16,8 +16,16 @@ import CreateMapping from './Components/crud/CreateMapping';
 import AddCourse from './Components/crud/AddCourse';
 import EditPLO from './Components/crud/EditPLO';
 import AddMarks from './Components/crud/AddMarks';
+import PokemonRow from './Components/PokemonRow';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import './style.css';
+
+const bulbasaur = {
+  id: 1,
+  name: 'Bulbasaur',
+  types: ['grass'],
+  sprite: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png',
+};
 
 const theme = createTheme({
   palette: {
@@ -66,6 +74,10 @@ root.render(
       <BrowserRouter>
         <Navbar />
         <Routes>
+          <Route
+            path="pokemon"
+            element={<PokemonRow bulbasaur={bulbasaur} />}
+          ></Route>
           <Route path="/" element={<Dashboard />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/activities" element={<Activities />} />

@@ -1,25 +1,25 @@
-import { useState, useEffect } from "react";
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import { Button, TextField, Typography } from "@mui/material";
-import { FormControl } from "@mui/material";
-import { InputLabel } from "@mui/material";
-import { Select } from "@mui/material";
-import { MenuItem } from "@mui/material";
+import { useState, useEffect } from 'react';
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
+import { Button, TextField, Typography } from '@mui/material';
+import { FormControl } from '@mui/material';
+import { InputLabel } from '@mui/material';
+import { Select } from '@mui/material';
+import { MenuItem } from '@mui/material';
 
 function App() {
-  const [name, setName] = useState("");
-  const [statement, setStatement] = useState("");
-  const [course, setCourse] = useState("");
+  const [name, setName] = useState('');
+  const [statement, setStatement] = useState('');
+  const [course, setCourse] = useState('');
   const [courses, setCourses] = useState([]);
 
   async function createClo(event) {
     event.preventDefault();
 
-    const response = await fetch("http://localhost:4000/api/create-clo", {
-      method: "POST",
+    const response = await fetch('http://localhost:4000/api/create-clo', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         name,
@@ -29,13 +29,13 @@ function App() {
     });
 
     if (response.ok) {
-      window.location.href = "/clos";
+      window.location.href = '/clos';
     }
   }
 
   useEffect(() => {
     async function getCourses() {
-      const response = await fetch("http://localhost:4000/api/course-list/");
+      const response = await fetch('http://localhost:4000/api/course-list/');
 
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
